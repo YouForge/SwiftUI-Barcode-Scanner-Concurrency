@@ -7,7 +7,10 @@ While the original example provides a great starting point for Vision-based scan
 If you want an overly dramatic retelling of how I updated the original example, check out my article at [ARTICLE LINK HERE](#). It will be published soon on Substack/Medium (link forthcoming).
 
 ## See it in action
-[video or screenshot]
+
+https://github.com/user-attachments/assets/5a16f0ed-bc56-41e2-9b65-67fb9ca4f59e
+
+SwiftUIBarcodeScannerExample scans barcodes and QR codes effortless. Supports a variety of formats and presents real-time results instantly, all utilizing modern Swift concepts and technologies.
 
 ## Modern Swift Highlights
 - Swift 6.2 concurrency

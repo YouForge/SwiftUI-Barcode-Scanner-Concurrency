@@ -132,7 +132,7 @@ actor BarcodeScannerCaptureService {
 ```
 
 ## Callouts
-- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or just `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable, but it was decided that it would also make it more complicated and was therefore omitted.
+- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable, but it was decided that it would also make it more complicated and was therefore omitted.
 - As of **Xcode 26.2 (17C52)**, the **Default Actor Isolation** is the **MainActor** and no longer **nonisolated**. This makes the `@MainActor` property above the `BarcodeScannerViewModel` class unnessecary. The property was left in the example for readability and to future proof against the possibility that this desicion is reverted in future versions of Xcode. 
 - Running the **SwiftUIBarcodeScannerExample** requires a device and **does not support** running on a simulator.
 

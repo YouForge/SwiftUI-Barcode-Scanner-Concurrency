@@ -67,6 +67,7 @@ actor BarcodeScannerCaptureService {
 
 ```
 
+
 ### View + ViewModel + Actor Structure
 
 The **SwiftUIBarcodeScannerExample** project utilizes the popular **View + ViewModel + Actor(Service/Manager) Structure** that has become so common within the industry.
@@ -130,10 +131,16 @@ actor BarcodeScannerCaptureService {
 }
 
 ```
+Under the stricter Swift6.2/Xcode 26.2 concurrency model `AsyncPublisher` generates compile time errors and therefore Apple recomends you use `AsyncStream`.
 
 ## Callouts
-- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable, but it was decided that it would also make it more complicated and was therefore omitted.
+- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable or easier to follow, but it was decided that it would also make increase complexity and was therefore omitted.
 - As of **Xcode 26.2 (17C52)**, the **Default Actor Isolation** is the **MainActor** and no longer **nonisolated**. This makes the `@MainActor` property above the `BarcodeScannerViewModel` class unnessecary. The property was left in the example for readability and to future proof against the possibility that this desicion is reverted in future versions of Xcode. 
 - Running the **SwiftUIBarcodeScannerExample** requires a device and **does not support** running on a simulator.
 
 ## Resource Links
+- [Artice outlining the creation of the **SwiftUIBarcodeScannerExample**](#)
+- [Original Swift forums post](https://forums.swift.org/t/safely-use-avcapturesession-swift-6-2-concurrency/83622)
+- [Original article](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) by [Luca Palmese](https://www.createwithswift.com/author/luca/)
+- [`AsyncStream` and `AsyncPublisher` explanation](https://forums.swift.org/t/is-it-fair-to-declare-combines-anypublisher-as-unchecked-sendable-as-long-as-output-error-types-are-sendable/76343/5)
+- [`AsyncStream` Apple documentation](https://developer.apple.com/documentation/swift/asyncstream)

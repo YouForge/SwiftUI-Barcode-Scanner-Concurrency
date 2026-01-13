@@ -1,6 +1,6 @@
 # SwiftUIBarcodeScannerExample
 
-SwiftUIBarcodeScannerExample is a minimal, modern **SwiftUI** application that demonstrates how to scan b**arcodes and QR codes** using **AVFoundation** and **Vision**, while embracing the **Swift 6.2 concurrency model**. It updates and refactors the original example from [“Reading QR codes and barcodes with the Vision framework”](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) on [CreateWithSwift.com](https://www.createwithswift.com/). You can find more about the author [Luca Palmese here](https://www.createwithswift.com/author/luca/).
+SwiftUIBarcodeScannerExample is a minimal, modern **SwiftUI** application that demonstrates how to scan **barcodes and QR codes** using **AVFoundation** and **Vision**, while embracing the **Swift 6.2 concurrency model**. It updates and refactors the original example from [“Reading QR codes and barcodes with the Vision framework”](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) on [CreateWithSwift.com](https://www.createwithswift.com/). You can find more about the author [Luca Palmese here](https://www.createwithswift.com/author/luca/).
 
 While the original example provides a great starting point for Vision-based scanning, there were no existing examples fully compatible with **SwiftUI** and the **Swift 6.2 strict concurrency checks**, particularly around safe usage of **AVCaptureSession**. This project fills in the gaps by refactoring and modernizing the implementation for smooth integration with **SwiftUI** and **structured concurrency**.
 
@@ -10,13 +10,13 @@ If you want an overly dramatic retelling of how I updated the original example, 
 
 https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b
 
-SwiftUIBarcodeScannerExample scans barcodes and QR codes effortless. Supports a variety of formats and presents real-time results instantly, all utilizing modern Swift concepts and technologies.
+SwiftUIBarcodeScannerExample scans barcodes and QR codes effortlessly. It supports a variety of formats and presents real-time results instantly, all while utilizing modern Swift concepts and technologies.
 
 ## Modern Swift Highlights
 
 ### SwiftUI-First
 
-The **SwiftUIBarcodeScannerExample** utilizes a SwiftUI first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added over top the view.
+The **SwiftUIBarcodeScannerExample** utilizes a SwiftUI-first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added on top of the view.
 ```swift
 
 var body: some View {
@@ -27,7 +27,7 @@ var body: some View {
                 await scannerViewModel.start()
             }
 
-        // Aditional component on top of BarcodeScannerView
+        // Additional component on top of BarcodeScannerView
         Text(scannerViewModel.scannedCode ?? "Scan a code")
     }
 }
@@ -45,7 +45,7 @@ This maximizes reusability when modifying the _SwiftUIBarcodeScannerExample_ or 
 
 ### Swift 6.2 Concurrency
 
-The **SwiftUIBarcodeScannerExample** relies on modern the modern Swift concurrency model over the use of closures or `DispatchQueue()`. The example issolates all camera fucntionality withion a thread safe `actor` that implemnents it's own `unownedExecutor` to ensure that the setup of the `AVCaptureSession` and the `AVCaptureVideoDataOutputSampleBufferDelegate` runs on the same thead.
+The **SwiftUIBarcodeScannerExample** relies on the modern Swift concurrency model over the use of closures or `DispatchQueue()`. The example isolates all camera functionality within a thread-safe `actor` that implements its own `unownedExecutor` to ensure that the setup of the `AVCaptureSession` and the `AVCaptureVideoDataOutputSampleBufferDelegate` runs on the same thread.
 
 ```swift
 
@@ -83,8 +83,7 @@ class BarcodeScannerViewModel { /* ViewModel */ }
 actor BarcodeScannerCaptureService { /* Actor(Service/Manager) */ }
 
 ```
-
-This was done to provide an example that is as close to a modern real world iOS project as possible.
+This was done to provide an example that is as close to a modern real-world iOS project as possible.
 
 ### AsyncStream & Continuation
 
@@ -131,15 +130,15 @@ actor BarcodeScannerCaptureService {
 }
 
 ```
-Under the stricter Swift6.2/Xcode 26.2 concurrency model `AsyncPublisher` generates compile time errors and therefore Apple recomends you use `AsyncStream`.
+Under the stricter Swift 6.2 / Xcode 26.2 concurrency model, `AsyncPublisher` generates compile-time errors and therefore Apple recommends using `AsyncStream`.
 
 ## Callouts
-- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable or easier to follow, but it was decided that it would also make increase complexity and was therefore omitted.
-- As of **Xcode 26.2 (17C52)**, the **Default Actor Isolation** is the **MainActor** and no longer **nonisolated**. This makes the `@MainActor` property above the `BarcodeScannerViewModel` class unnessecary. The property was left in the example for readability and to future proof against the possibility that this desicion is reverted in future versions of Xcode. 
+- No `Sendable` requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or `Sendable` properties as this isn't a requirement in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable or easier to follow, but it was decided that it would also increase complexity and was therefore omitted.
+- As of **Xcode 26.2 (17C52)**, the **Default Actor Isolation** is the **MainActor** and no longer **nonisolated**. This makes the `@MainActor` property above the `BarcodeScannerViewModel` class unnecessary. The property was left in the example for readability and to future proof against the possibility that this decision is reverted in future versions of Xcode. 
 - Running the **SwiftUIBarcodeScannerExample** requires a device and **does not support** running on a simulator.
 
 ## Resource Links
-- [Artice outlining the creation of the **SwiftUIBarcodeScannerExample**](#)
+- [Article outlining the creation of the **SwiftUIBarcodeScannerExample**](#)
 - [Original Swift forums post](https://forums.swift.org/t/safely-use-avcapturesession-swift-6-2-concurrency/83622)
 - [Original article](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) by [Luca Palmese](https://www.createwithswift.com/author/luca/)
 - [`AsyncStream` and `AsyncPublisher` explanation](https://forums.swift.org/t/is-it-fair-to-declare-combines-anypublisher-as-unchecked-sendable-as-long-as-output-error-types-are-sendable/76343/5)

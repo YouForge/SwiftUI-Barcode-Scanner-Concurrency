@@ -8,7 +8,7 @@ If you want an overly dramatic retelling of how I updated the original example, 
 
 ## See it in action
 
-https://github.com/user-attachments/assets/5a16f0ed-bc56-41e2-9b65-67fb9ca4f59e
+https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b
 
 SwiftUIBarcodeScannerExample scans barcodes and QR codes effortless. Supports a variety of formats and presents real-time results instantly, all utilizing modern Swift concepts and technologies.
 

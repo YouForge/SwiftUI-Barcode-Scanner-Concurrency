@@ -16,7 +16,7 @@ SwiftUIBarcodeScannerExample scans barcodes and QR codes effortless. Supports a 
 
 ### SwiftUI-First
 
-The _SwiftUIBarcodeScannerExample_ utilizes a SwiftUI first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added over top the view.
+The **SwiftUIBarcodeScannerExample** utilizes a SwiftUI first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added over top the view.
 ```swift
 
 var body: some View {

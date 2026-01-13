@@ -43,16 +43,97 @@ struct BarcodeScannerView: UIViewRepresentable {
 ```
 This maximizes reusability when modifying the _SwiftUIBarcodeScannerExample_ or incorporating the example into your own project.
 
-### Swift 6.2 concurrency
+### Swift 6.2 Concurrency
+
+The **SwiftUIBarcodeScannerExample** relies on modern the modern Swift concurrency model over the use of closures or `DispatchQueue()`. The example issolates all camera fucntionality withion a thread safe `actor` that implemnents it's own `unownedExecutor` to ensure that the setup of the `AVCaptureSession` and the `AVCaptureVideoDataOutputSampleBufferDelegate` runs on the same thead.
+
+```swift
+
+actor BarcodeScannerCaptureService {
+    private let sessionQueue = DispatchSerialQueue(label: "sessionQueue")
+    // Define other actor properties
+
+    // Ensures execution always happens on the sessionQueue
+    nonisolated var unownedExecutor: UnownedSerialExecutor {
+        sessionQueue.asUnownedSerialExecutor()
+    }
+    
+    func start() async throws { /*Setup AVCaptureSession*/ }
+    
+    private class OutputSampleDelegate: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+        func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) { /*Scan codes*/ }
+    }
+}
+
+```
 
 ### View + ViewModel + Actor Structure
 
-### Actors & Private Delegate Class
+The **SwiftUIBarcodeScannerExample** project utilizes the popular **View + ViewModel + Actor(Service/Manager) Structure** that has become so common within the industry.
+
+```swift
+
+struct ContentView: View { /* View */ }
+
+@MainActor
+@Observable
+class BarcodeScannerViewModel { /* ViewModel */ }
+
+actor BarcodeScannerCaptureService { /* Actor(Service/Manager) */ }
+
+```
+
+This was done to provide an example that is as close to a modern real world iOS project as possible.
 
 ### AsyncStream & Continuation
 
+The passing of values between the `actor` and the `ViewModel` is achieved by the use of `AsyncStream` and not an `AsyncPublisher`.
+
+```swift
+
+@MainActor
+@Observable
+class BarcodeScannerViewModel {
+    // ViewModel properties
+    
+    private func scannedStringListener() {
+        Task {
+            // Handle elements within stream of scanned codes
+            for await codeString in scannedStringStream {
+                scannedCode = codeString
+            }
+        }
+    }
+}
+
+actor BarcodeScannerCaptureService {
+    var scannedStringStream: AsyncStream<String>?
+    // Other actor properties
+
+    func start() async throws {
+        // Assign the actor stream to the delegate classes
+        scannedStringStream = outputSampleDelegate.scannedStringStream
+        // Continue AVCaptureSession setup
+    }
+    
+    private class OutputSampleDelegate: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+        let scannedStringStream: AsyncStream<String>
+        private let continuation: AsyncStream<String>.Continuation
+
+        // Initialize OutputSampleDelegate class
+        
+        func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+            // Add scanned code element to the stream
+            continuation.yield("scannedCode")
+        }
+    }   
+}
+
+```
+
 ## Callouts
-- Sendable requirement on detectBarcode
-- @MainActor on view model redundant in Xcode 26.2
+- No sendable requirement on the `AVCaptureVideoDataOutputSampleBufferDelegate`. The `OutputSampleDelegate` and the subsequent `AVCaptureVideoDataOutputSampleBufferDelegate` are not marked with the `@unchecked Sendable` or just `Sendable` properties as this isn't a requirment in **Xcode 26.2 (17C52)**. It could be argued that this would make the example more readable, but it was decided that it would also make it more complicated and was therefore omitted.
+- As of **Xcode 26.2 (17C52)**, the **Default Actor Isolation** is the **MainActor** and no longer **nonisolated**. This makes the `@MainActor` property above the `BarcodeScannerViewModel` class unnessecary. The property was left in the example for readability and to future proof against the possibility that this desicion is reverted in future versions of Xcode. 
+- Running the **SwiftUIBarcodeScannerExample** requires a device and **does not support** running on a simulator.
 
 ## Resource Links

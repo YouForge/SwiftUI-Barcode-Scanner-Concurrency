@@ -13,7 +13,10 @@ https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b
 SwiftUIBarcodeScannerExample scans barcodes and QR codes effortless. Supports a variety of formats and presents real-time results instantly, all utilizing modern Swift concepts and technologies.
 
 ## Modern Swift Highlights
-- **SwiftUI-first**: The _SwiftUIBarcodeScannerExample_ utilizes a SwiftUI first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added over top the view.
+
+### SwiftUI-First
+
+The _SwiftUIBarcodeScannerExample_ utilizes a SwiftUI first approach. It wraps the `UIKit PreviewView` returned from the `AVFoundation` libraries within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added over top the view.
 ```swift
 
 var body: some View {
@@ -39,12 +42,17 @@ struct BarcodeScannerView: UIViewRepresentable {
 
 ```
 This maximizes reusability when modifying the _SwiftUIBarcodeScannerExample_ or incorporating the example into your own project.
-- Swift 6.2 concurrency:
-- View + ViewModel + Actor Structure:
-- Actors & Private Delegate Class:
-- AsyncStream & Continuation:
-...
+
+### Swift 6.2 concurrency
+
+### View + ViewModel + Actor Structure
+
+### Actors & Private Delegate Class
+
+### AsyncStream & Continuation
 
 ## Callouts
 - Sendable requirement on detectBarcode
 - @MainActor on view model redundant in Xcode 26.2
+
+## Resource Links

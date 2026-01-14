@@ -1,10 +1,7 @@
 ![Swift 6.2](https://img.shields.io/badge/Swift-6.2-orange?logo=swift&logoColor=white)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-blue?logo=swift&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-26.2-blue?logo=apple&logoColor=white)
-![Swift Concurrency](https://img.shields.io/badge/Swift--Concurrency-✓-orange?logo=swift&logoColor=white)
 ![AVFoundation](https://img.shields.io/badge/AVFoundation-✓-lightgrey)
-![Vision](https://img.shields.io/badge/Vision-✓-lightgrey)
-![Xcode](https://img.shields.io/badge/Xcode-26.2-blue?logo=xcode&logoColor=white)
 
 # SwiftUIBarcodeScannerExample
 

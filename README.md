@@ -13,7 +13,7 @@ If you want an overly dramatic retelling of how I updated the original example, 
 
 ## See SwiftUI Barcode & QR Code Scanner in Action
 
-[![SwiftUI QR & Barcode Scanner in Action]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg](https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b))]([www.youtube.com](https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b))
+https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b
 
 SwiftUIBarcodeScannerExample scans barcodes and QR codes effortlessly. It supports a variety of formats and presents real-time results instantly, all while utilizing modern SwiftUI and Swift concurrency concepts.
 

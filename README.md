@@ -1,3 +1,11 @@
+![Swift 6.2](https://img.shields.io/badge/Swift-6.2-orange?logo=swift&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-blue?logo=swift&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-17-blue?logo=apple&logoColor=white)
+![Swift Concurrency](https://img.shields.io/badge/Swift--Concurrency-✓-orange?logo=swift&logoColor=white)
+![AVFoundation](https://img.shields.io/badge/AVFoundation-✓-lightgrey)
+![Vision](https://img.shields.io/badge/Vision-✓-lightgrey)
+![Xcode](https://img.shields.io/badge/Xcode-26.2-blue?logo=xcode&logoColor=white)
+
 # SwiftUIBarcodeScannerExample
 
 SwiftUIBarcodeScannerExample is a minimal, modern **SwiftUI** application that demonstrates how to scan **barcodes and QR codes** using **AVFoundation** and **Vision**, while embracing the **Swift 6.2 concurrency model**. It updates and refactors the original example from [“Reading QR codes and barcodes with the Vision framework”](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) on [CreateWithSwift.com](https://www.createwithswift.com/). You can find more about the author [Luca Palmese here](https://www.createwithswift.com/author/luca/).

@@ -3,23 +3,23 @@
 ![iOS](https://img.shields.io/badge/iOS-26.2-blue?logo=apple&logoColor=white)
 ![AVFoundation](https://img.shields.io/badge/AVFoundation-✓-green)
 
-# SwiftUIBarcodeScannerExample
+# SwiftUIBarcodeScannerExample – QR & Barcode Scanner in SwiftUI
 
-SwiftUIBarcodeScannerExample is a minimal, modern **SwiftUI** application that demonstrates how to scan **barcodes and QR codes** using **AVFoundation** and **Vision**, while embracing the **Swift 6.2 concurrency model**. It updates and refactors the original example from [“Reading QR codes and barcodes with the Vision framework”](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) on [CreateWithSwift.com](https://www.createwithswift.com/). You can find more about the author [Luca Palmese here](https://www.createwithswift.com/author/luca/).
+SwiftUIBarcodeScannerExample is a minimal, modern **SwiftUI** example app that demonstrates how to scan **QR codes and barcodes** using **AVFoundation** and **Vision**, while embracing the **Swift 6.2 concurrency model**. It updates and refactors the original example from [“Reading QR codes and barcodes with the Vision framework”](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) on [CreateWithSwift.com](https://www.createwithswift.com/). You can find more about the author [Luca Palmese here](https://www.createwithswift.com/author/luca/).
 
 While the original example provides a great starting point for Vision-based scanning, there were no existing examples fully compatible with **SwiftUI** and the **Swift 6.2 strict concurrency checks**, particularly around the safe usage of **AVCaptureSession**. This project fills in the gaps by refactoring and modernizing the implementation for smooth integration with **SwiftUI** and **structured concurrency**.
 
 If you want an overly dramatic retelling of how I updated the original example, check out my article at [ARTICLE LINK HERE](#). It will be published soon on Substack/Medium (link forthcoming).
 
-## See it in action
+## See SwiftUI Barcode & QR Code Scanner in Action
 
-https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b
+![SwiftUI QR & Barcode Scanner in Action](https://github.com/user-attachments/assets/987f05ab-560a-4853-9da4-3fd27fc92d7b)
 
 SwiftUIBarcodeScannerExample scans barcodes and QR codes effortlessly. It supports a variety of formats and presents real-time results instantly, all while utilizing modern SwiftUI and Swift concurrency concepts.
 
 ## Modern Swift Highlights
 
-### SwiftUI-First
+### SwiftUI-First QR/Barcode Scanner View
 
 The **SwiftUIBarcodeScannerExample** utilizes a SwiftUI-first approach. It wraps a UIKit `PreviewView` backed by `AVCaptureVideoPreviewLayer` within a `UIViewRepresentable` named `BarcodeScannerView` rather than a `UIViewControllerRepresentable` so that other SwiftUI components can be added on top of the view.
 ```swift
@@ -92,7 +92,7 @@ This was done to provide an example that is as close to a modern real-world iOS 
 
 ### AsyncStream & Continuation
 
-The passing of values between the `actor` and the `ViewModel` is achieved by the use of `AsyncStream` and not an `AsyncPublisher`, which allows barcode results to flow safely across concurrency boundaries.
+The passing of values between the `actor` and the `ViewModel` is achieved by the use of `AsyncStream` and not an `AsyncPublisher` which allows barcode results to flow safely across concurrency boundaries.
 
 ```swift
 
@@ -143,8 +143,8 @@ Under the stricter Swift 6.2 / Xcode 26.2 concurrency model, `AsyncPublisher` ge
 - Running the **SwiftUIBarcodeScannerExample** requires a device and **does not support** running on a simulator.
 
 ## Resource Links
-- [Article outlining the creation of the **SwiftUIBarcodeScannerExample**](#)
+- [A Step-by-step article on creating **SwiftUIBarcodeScannerExample**](#)
 - [Original Swift forums post](https://forums.swift.org/t/safely-use-avcapturesession-swift-6-2-concurrency/83622)
-- [Original article](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) by [Luca Palmese](https://www.createwithswift.com/author/luca/)
+- [Original CreateWithSwift QR & Barcode Scanner article](https://www.createwithswift.com/reading-qr-codes-and-barcodes-with-the-vision-framework/) by [Luca Palmese](https://www.createwithswift.com/author/luca/)
 - [`AsyncStream` and `AsyncPublisher` explanation](https://forums.swift.org/t/is-it-fair-to-declare-combines-anypublisher-as-unchecked-sendable-as-long-as-output-error-types-are-sendable/76343/5)
 - [`AsyncStream` Apple documentation](https://developer.apple.com/documentation/swift/asyncstream)

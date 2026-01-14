@@ -1,5 +1,5 @@
 ![Swift 6.2](https://img.shields.io/badge/Swift-6.2-orange?logo=swift&logoColor=white)
-![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-blue?logo=swift&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-orange?logo=swift&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-26.2-blue?logo=apple&logoColor=white)
 ![AVFoundation](https://img.shields.io/badge/AVFoundation-✓-green)
 

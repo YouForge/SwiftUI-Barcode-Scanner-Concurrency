@@ -1,23 +1,52 @@
 import SwiftUI
 import Vision
+import PhotosUI
 @preconcurrency import AVFoundation
 
 struct ContentView: View {
+    
     @State private var scannerViewModel = BarcodeScannerViewModel()
+    @State private var selectedImage: PhotosPickerItem?
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            
             BarcodeScannerView(session: scannerViewModel.session)
                 .ignoresSafeArea()
                 .task {
                     await scannerViewModel.start()
                 }
+            
+            VStack(spacing: 12) {
                 
-            Text(scannerViewModel.scannedCode ?? "Scan a code")
-                .padding()
-                .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding()
+                Text(scannerViewModel.scannedCode ?? "Scan a code")
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+               
+                
+                PhotosPicker(selection: $selectedImage, matching: .images) {
+                    Label("Upload QR", systemImage: "photo")
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .onChange(of: selectedImage) { _, newItem in
+                    guard let newItem else { return }
+
+                    Task {
+                        if let data = try? await newItem.loadTransferable(type: Data.self),
+                           let image = UIImage(data: data) {
+
+                            print("Image selected")   // debug
+                            await scannerViewModel.detectQRCode(from: image)
+                        }
+                    }
+                }
+            }
+            .padding()
         }
     }
 }
@@ -33,6 +62,7 @@ struct BarcodeScannerView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PreviewView, context: Context) { }
+    
 }
 
 class PreviewView: UIView {
@@ -71,6 +101,35 @@ class BarcodeScannerViewModel {
             for await codeString in scannedStringStream {
                 scannedCode = codeString
             }
+        }
+    }
+    func detectQRCode(from image: UIImage) async {
+
+        guard let ciImage = CIImage(image: image) else {
+            print("Failed to convert image")
+            return
+        }
+
+        let request = VNDetectBarcodesRequest()
+        request.symbologies = [.qr]
+
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+
+        do {
+            try handler.perform([request])
+
+            if let result = request.results?.first,
+               let payload = result.payloadStringValue {
+
+                scannedCode = payload
+                print("QR detected:", payload)
+
+            } else {
+                print("No QR code found")
+            }
+
+        } catch {
+            print("QR detection failed:", error)
         }
     }
 }
